@@ -1,0 +1,13 @@
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+SUB Session_OnStart
+  session("user")=""
+  session("sql")=""
+  session("sql2")=""
+end sub
+SUB Session_OnEnd
+  session("user")=""
+  session("sql")=""
+  session("sql2")=""
+END SUB
+  
+</SCRIPT>

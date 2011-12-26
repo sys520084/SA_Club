@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>更改密码</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+<!--
+div,td,p,li{font-size:9pt; line-height:14pt; font-family:??;color:black;}
+a:link {text-decoration: none; }
+a:visited {text-decoration: none;}
+a:hover {text-decoration: underline; color: ff0000}
+a:active {text-decoration;}
+.unnamed1 {  font-family: "宋体"; font-size: 9pt; color: #D9F1E5}
+input {
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;
+	color: #FFFFFF;
+	background-color: #000066;
+}
+select {
+	FONT-FAMILY: "宋体";
+	FONT-SIZE: 9pt;
+	color: #FFFFFF;
+	background-color: #000066;
+}
+
+-->
+</style>
+<script language="javascript">
+  function checkit(){
+    if(passfrm.name.value==""){
+      alert("请填写用户名");
+      passfrm.name.focus();
+      return false;
+      }
+    if(passfrm.oldpass.value==""){
+      alert("请旧用户口令");
+      passfrm.oldpass.focus();
+      return false;
+      }
+    if(passfrm.newpass.value==""){
+      alert("请填写新口令");
+      passfrm.newpass.focus();
+      return false;
+      }  
+    if(passfrm.newpass.value!=passfrm.pass2.value){
+      alert("口令更改无效");
+      passfrm.pass2.focus();
+      return false;
+      }  
+    return true;
+ }
+ </script>
+</head>
+
+<body bgcolor="#003366">
+<div align="center">
+  <p class="unnamed1">更改用户密码：</p>
+  <form name="passfrm" action="changepass.asp"  onsubmit="return checkit();">
+    <table bgcolor=#336699 border=0 bordercolor=#cccccc width="85%">
+      <tr> 
+        <td colspan="4" noWrap><p align="center" class="unnamed1">您的用户名： 
+            <input type="text" name="name">
+          </p>
+          <p align="center" class="unnamed1">输入旧密码： 
+            <input type="password" name="oldpass">
+          </p>
+          <p align="center" class="unnamed1">输入新密码： 
+            <input type="password" name="newpass" maxlength="20">
+          </p>
+          <p align="center" class="unnamed1">新密码确认： 
+            <input type="password" name="pass2">
+          </p>
+          <p align="center"> <span class="unnamed1"> 
+            <input type="submit" name="changepass" value="确定">
+            <input type="reset" name="Submit2" value="重写">
+            </span></p></td>
+      </tr>
+    </table>
+
+  </form>
+</div>
+</body>
+</html>

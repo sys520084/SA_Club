@@ -1,0 +1,381 @@
+<!--#include file="../../VAR.asp"-->
+<!--#include file="aspFunctions.asp"-->
+<%OpenString=DBBS()%>
+<html>
+<head>
+<title>发表文章</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style>
+<!--
+div,td,p,li,input,textarea{font-size:9pt; line-height:14pt; font-family:宋体;color:black;}
+body.mceContentBody {fontsize: 12pt;}
+a:link {text-decoration: none; }
+a:visited {text-decoration: none;}
+a:hover {text-decoration: underline; color: ff0000}
+a:active {text-decoration;}
+-->
+</style>
+<script language=javascript>
+function checkfrm(){
+   if(frm1.title.value==""){
+     alert("标题不能为空");
+     frm1.title.focus();
+     return false;
+   } 
+   return true;
+   //return confirm("您确认所有信息都填写正确了，并要发表吗？");
+} 
+function js_callpage(htmlurl) {
+var 
+newwin=window.open(htmlurl,"homeWin","toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=330");
+  newwin.focus();
+  return false;
+}  
+</script>
+<!-- TinyMCE -->
+<script type="text/javascript" src="../tinyfck/tiny_mce.js"></script>
+
+<script type="text/javascript">
+tinyMCE.init({
+		mode : "textareas",
+		theme : "advanced",
+		plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,paste,directionality,fullscreen,noneditable,contextmenu",
+		theme_advanced_buttons1_add_before : "save,newdocument,separator",
+		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+		theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,zoom,separator,forecolor,backcolor,liststyle",
+		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
+		theme_advanced_buttons3_add_before : "tablecontrols,separator",
+		theme_advanced_buttons3_add : "emotions,iespell,flash,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		plugin_insertdate_dateFormat : "%Y-%m-%d",
+		plugin_insertdate_timeFormat : "%H:%M:%S",
+		extended_valid_elements : "hr[class|width|size|noshade]",
+		file_browser_callback : "fileBrowserCallBack",
+		paste_use_dialog : false,
+		theme_advanced_resizing : true,
+		theme_advanced_resize_horizontal : false,
+		theme_advanced_link_targets : "_something=My somthing;_something2=My somthing2;_something3=My somthing3;",
+		apply_source_formatting : true
+	});
+
+	function fileBrowserCallBack(field_name, url, type, win) {
+		var connector = "../../filemanager/browser.html?Connector=connectors/php/connector.php";
+		var enableAutoTypeSelection = true;
+
+		var cType;
+		tinyfck_field = field_name;
+		tinyfck = win;
+
+		switch (type) {
+			case "image":
+				cType = "Image";
+				break;
+			case "flash":
+				cType = "Flash";
+				break;
+			case "file":
+				cType = "File";
+				break;
+		}
+
+		if (enableAutoTypeSelection && cType) {
+			connector += "&Type=" + cType;
+		}
+
+		window.open(connector, "tinyfck", "modal,width=600,height=400");
+	}
+</script>
+<script type="text/javascript">
+	//tinyMCE.init({
+	//	language : "zh", 
+	//	mode : "textareas",
+	//	theme : "advanced",
+	//	theme_advanced_layout_manager : "SimpleLayout",
+
+	//	plugins : //"pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmen//u,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+
+		// Theme options
+	//	theme_advanced_buttons1 : //"save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,f//ontsizeselect",
+	//	theme_advanced_buttons2 : //"cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,//help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+	//	theme_advanced_buttons3 : //"tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		
+	//	theme_advanced_toolbar_location : "top",
+	//	theme_advanced_toolbar_align : "left",
+	//	theme_advanced_statusbar_location : "bottom",
+	//	theme_advanced_resizing : true,
+
+		// Example content CSS (should be your site CSS)
+		//content_css : "define.css",
+		//theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
+		//font_size_style_values : "10px,12px,13px,14px,16px,18px,20px",
+
+		
+
+
+		// Drop lists for link/image/media/template dialogs
+	//	template_external_list_url : "lists/template_list.js",
+	//	external_link_list_url : "lists/link_list.js",
+	//	external_image_list_url : "lists/image_list.js",
+	//	media_external_list_url : "lists/media_list.js",
+
+		// Style formats
+	//	style_formats : [
+	//		{title : 'Bold text', inline : 'b'},
+	//		{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+	//		{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+	//		{title : 'Example 1', inline : 'span', classes : 'example1'},
+	//		{title : 'Example 2', inline : 'span', classes : 'example2'},
+	//		{title : 'Table styles'},
+	//		{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+	//	],
+
+		// Replace values for the template plugin
+	//	template_replace_values : {
+	//		username : "Some User",
+	//		staffid : "991234"
+	//	}
+	//});
+</script>
+<!-- /TinyMCE -->
+</head>
+<body bgcolor="#FBFBF4">
+<%atype="bbs"
+  if session("user")="" then
+		 UrlTail=MyUrlEncode("../forum/new.asp?id=" & request("id") & "&eid="&request("eid"))
+         Response.Write "<div align='center'>对不起，您不能发表文章，请<a href='../membership/relogin.asp?UrlTail=" & UrlTail & "'>重新登陆</a>，或者：</div>"
+         Response.End
+  end if
+  set conn=server.CreateObject("ADODB.Connection")
+  conn.Open OpenString
+  isadmin=IsSuperAdmin(Conn,Session("user"))
+  
+  ThisTail=request("ThisTail")
+  UrlTail=request("UrlTail")
+  id=request("id")
+  eid=request("eid")
+
+
+  sql="select * from power where username='"&session("user")&"' and power=1"
+  'Response.Write sql
+  'Response.End 
+  set rs=conn.Execute(sql)
+  if not rs.eof then
+     Response.Write "<div align='center'>对不起，您不能发表文章。因为您的权限被管理员封闭了！</div>"
+     Response.End 
+  end if   
+  rs.close
+
+  if id<>"" then
+	id=clng(id)
+	atype="bbs"
+	 sql="select * from articles where id="&id
+	 rs.open sql,conn,3
+	 if rs.eof then
+		response.write "<div align='center'>对不起，您不能回复此文。可能它已经被删除了！</div>"
+		response.end
+	 end if
+	 catagory=rs("catagory")
+	 tags=rs("tags")
+     if left(trim(rs("title")),3)<>"回复：" then
+        title=server.HtmlEncode("回复："&left(trim(rs("title")),97))
+     else
+        title=server.HtmlEncode(left(trim(rs("title")),100))
+     end if   
+     if len(rs("content"))>0 then
+       LastContent=GetReplyContent(rs("content"),rs("author"),rs("title"))
+     end if
+	 LastContent="<br><br><br><font color=gray>" & LastContent&"</font><p></p>"
+	fatherid=rs("fatherid")
+	if fatherid="0" then
+		fatherid=id
+	end if
+
+  end if
+   if eid<>"" then
+    sql="select * from articles where id="&eid
+	rs.Open sql,conn
+	if rs.EOF then
+       Response.Write "<div align='center'>对不起，文章已经删除，提取失败！</div>"
+       response.End
+	end if
+	title=rs("title")
+	lastcontent=rs("content")
+	face=rs("face")
+	author=trim(rs("author"))
+	catagory=rs("catagory")
+	tags=rs("tags")
+	fatherid=rs("fatherid")
+	'Response.Write admin
+	author1=left(author,len(session("user")))
+	if rs("score")=1 then
+		atype="blog"
+	end if
+'  author=author1
+	if author1<>trim(session("user")) and not isadmin then
+		 Response.Write "<div align=center>对不起，您不能更改这篇文章</div>"
+		Response.End
+	end if
+	rs.close
+	set rs=nothing
+  end if
+  saveweb="save.asp"
+  if eid<>"" then
+	saveweb="deal.asp"
+  end if
+     %>
+<div align="center">发表文章</div>
+<form method="post" action=<%=saveweb%> name="frm1" onsubmit="return checkfrm();">
+  <table width="100%" border="1" bgcolor="#FBFBF4" bordercolorlight="#000066" bordercolordark="#CCFFFF" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td colspan="3" bgcolor="#B09B8D"> <div align="center">题目： 
+          <%'Response.Write request("id")
+           'Response.Write request("title")
+           if title<>"" and id<>"" then%>
+			<input type="hidden" name="fatherid" value=<%=fatherid%>>
+          <%else%>
+			<input type="hidden" name="fatherid" value=0>
+          <% 
+           end if
+		   if eid<>"" then%>
+		     <input type="hidden" name="id" value=<%=eid%>>
+			 <input type="hidden" name="action" value="edit">
+		   <%end if%>
+          <input type="hidden" name="name" value="<%=session("user")%>">
+		  <%if id<>"" then%>
+		  <input type="hidden" name="IsReply" value=1>
+		  <%end if%>
+		  <input type="hidden" name="ThisTail" value=<%=server.UrlEncode(ThisTail)%>>
+		  <input type="hidden" name="UrlTail" value=<%=server.UrlEncode(UrlTail)%>>
+          <input type="text" name="title" value="<%=title%>" size="45">
+          &nbsp;</div></td>
+    </tr>
+    <tr>
+      <td colspan="3" align="center" bgcolor="#B09B8D"> 
+        <%
+		'response.write catagory
+		if isadmin then
+		if id="" then%>
+        &nbsp;&nbsp;请选择论坛<select name="catagory">
+        <%	sql1="select * from forum_state where fatherid<>0"
+			set rs1=conn.Execute(sql1)
+			do while not rs1.eof
+			%>
+			<option value="<%=rs1("catagory")%>" <%if catagory=rs1("catagory") then%>selected<%end if%>><%=rs1("catagory")%></option>
+			<%rs1.movenext
+			loop
+			rs1.close%>			
+        </select>
+        <%end if
+		end if
+		%>
+</td>
+        
+    </tr>
+	
+    <tr> 
+      <td colspan="3" height="87"> <div align="center"> 
+          <p>请您选择一种表情：<br>
+          <table width="95%" border="0">
+            <tr align="center" valign="middle"> 
+              <td> <input type="radio" name="pics" value="face01" checked> <img src="../img/face01.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="face02"> <img src="../img/face02.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="face03"> <img src="../img/face03.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon22"> <img src="../img/icon22.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="1"> <img src="../img/1.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon64"> <img src="../img/icon64.gif" width="15" height="15"> 
+              </td>
+            </tr>
+            <tr align="center" valign="middle"> 
+              <td> <input type="radio" name="pics" value="icon62"> <img src="../img/icon62.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="mood9"> <img src="../img/mood9.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="6"> <img src="../img/6.gif" width="15" height="15"></td>
+              <td> <input type="radio" name="pics" value="icon35"> <img src="../img/icon35.gif" width="21" height="14"> 
+              </td>
+              <td> <input type="radio" name="pics" value="3"> <img src="../img/3.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon50"> <img src="../img/icon50.gif" width="15" height="15"> 
+              </td>
+            </tr>
+            <tr align="center" valign="middle"> 
+              <td> <input type="radio" name="pics" value="mood3"> <img src="../img/mood3.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon24"> <img src="../img/icon24.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon13"> <img src="../img/icon13.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon14"> <img src="../img/icon14.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon16"> <img src="../img/icon16.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon19"> <img src="../img/icon19.gif" width="15" height="15"> 
+              </td>
+            </tr>
+            <tr align="center" valign="middle"> 
+              <td> <input type="radio" name="pics" value="icon20"> <img src="../img/icon20.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="hotclosed"> <img src="../img/hotclosed.gif" width="14" height="18"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon30"> <img src="../img/icon30.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon31"> <img src="../img/icon31.gif" width="15" height="15"> 
+              </td>
+              <td> <input type="radio" name="pics" value="icon11"> <img src="../img/icon11.gif" width="15" height="15"> 
+              </td>
+              <td><input type="radio" name="pics" value="icon48"> <img src="../img/icon48.gif" width="14" height="14"> 
+              </td>
+            </tr>
+          </table>
+        </div></td>
+    </tr>
+    <tr> 
+      <td colspan="3" height="97" align=center> <table align="center" witdh="90%"> 
+        <tr><td width="800">
+          <p align="center">内容：<br>
+		  <div align="center">
+		   <textarea name="content" rows="30" cols="80" style="width: 100%">
+		   <%=Server.HTMLEncode(trim(lastcontent))%>
+	       </textarea>
+		   
+		   </div>
+		   <div align="center"><a href="javascript:;" onmousedown="tinyMCE.get('content').show();">[Show]</a>
+		<a href="javascript:;" onmousedown="tinyMCE.get('content').hide();">[Hide]</a></div>
+			<div align="center">
+			添加标签（以","分割）
+			<%if tags<>"" then
+				tags=server.HTMLEncode(tags)
+			  end if
+			%>
+			<input type="text" name="tags" value="<%=tags%>">
+			
+            <br>
+            <input type="submit" name="save" value="确定">
+            <input type="reset" name="Submit2" value="重添">
+			</div>
+          </p>
+        </td></tr></table>
+	  </td>
+    </tr>
+	
+  </table>
+</form>
+<table>
+<tr>
+	<td align="center"><form method="post" name="form1" action="../upload/savedoc.asp?uptype=1" enctype="multipart/form-data" target="_blank">
+    添加附件： 
+      <input type="file" name="doc">
+      <input type="submit" name="confirm" value="确定">
+    </form>
+	</td>
+	</tr>
+</table>
+</body>
+</html>

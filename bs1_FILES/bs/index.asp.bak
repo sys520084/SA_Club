@@ -1,0 +1,257 @@
+<%@ codepage=936%>
+<!--#include file="VAR.asp"-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>集智俱乐部</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META http-equiv=Pragma content=no-cache>
+<META http-equiv=Expires content="Sun, 6 Mar 2005 01:00:00 GMT">
+<LINK href="images/define.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.3790.4275" name=GENERATOR>
+<script>
+function setHeight2(theHeight){
+	document.all.hotdot1.height=theHeight;
+}
+</script>
+</HEAD>
+<BODY>
+<DIV id=maxw>
+<FORM action="http://www.google.com/search" method=get target="_blank">
+<input type=hidden name=ie value=gb2312>
+<input type=hidden name=oe value=gb2312>
+<INPUT TYPE="hidden" NAME="hl" VALUE="zh-CN">
+<input type=hidden name=domains value="www.swarmagents.com">
+<input type=hidden name=sitesearch value="www.swarmagents.com">
+
+
+
+<table width="940" border="0" align="center" cellpadding="2" cellspacing="0">
+  <tr>
+    <td width="175" rowspan="2"><img src="images/logo2.gif" alt="集智俱乐部" width="175" height="65" longdesc="http://www.swarmagents.cn" /></td>
+    <td height="38"><DIV id=nav><A class=now href="http://www.swarmagents.cn/"><SPAN>首页</SPAN></A> <A 
+href="http://www.douban.com/group/swarmagents/" target="_blank">集智豆瓣</A> <A 
+href="http://www.swarmagents.cn/bs/forum/viewtitle.asp?catagory=集智活动" target="_blank">集智纪事</A> <A 
+href="http://www.swarmagents.cn/bs/forum.htm" target="_blank">头脑风暴</A> <A 
+href="http://www.swarmagents.cn/thesis/" target="_blank">共享资源</A> <A 
+href="http://www.swarmagents.cn/complex/">复杂系统</A> <A 
+href="http://www.swarmagents.cn/vm/" target="_blank">虚拟世界</A><A href="http://www.swarmagents.com/oldindex.htm">旧版</A> </DIV>
+<INPUT id=page_focus maxLength=60 size=22 name=q><INPUT class=butt type=submit value=搜索 name=btnG></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#eef9eb">『 让苹果砸得更猛烈些吧！』</td>
+  </tr>
+</table>
+
+
+
+</FORM>
+<DIV id=main>
+<DIV id=tableb>
+<DIV id=in_tableb>
+<H2>集智纪事～～～～～～～～～～ <SPAN class=pl>( <A 
+href="http://swarmagents.scinese.com/" target="_blank">更多</A> )</SPAN></H2>
+<DIV class=indent><IFRAME align=top|left marginWidth=0 marginHeight=0 
+                        src="WebLifter/scinese.asp" frameBorder=0 width="500" 
+                        scrolling=no height=300></IFRAME></DIV><BR>
+
+<H2>集智豆瓣书屋～～～～～～～～<SPAN class=pl>( <A 
+href="http://www.douban.com/group/swarmagents/collection/" target="_blank">更多</A> )</SPAN>～～～～～～～～<A 
+href="http://www.douban.com/group/swarmagents/" target="_blank">豆瓣小组</A></H2>
+<DIV class=clear>
+
+<IFRAME align=top|left marginWidth=0 marginHeight=0 
+                        src="WebLifter/douban.asp" frameBorder=0 width="540" 
+                        scrolling=no height=350></IFRAME>
+</DIV>
+<DIV class=obss>
+<FORM name=form1 onsubmit="javascript:form1.pass.value=form1.pass1.value;form1.pass1.value='';" action=http://www.swarmagents.cn/bs/jump.asp method=post target=_blank>
+<H2>头脑风暴～～～～～～<SPAN class=pl>( <A 
+href="http://www.swarmagents.cn/bs/forum.htm" target="_blank">更多</A> )</SPAN>
+用户名<INPUT maxLength=20 size=5 name=name style="BORDER-RIGHT: #608cc8 1px dotted; BORDER-TOP: #608cc8 1px dotted; MARGIN-LEFT: 1px; BORDER-LEFT: #608cc8 1px dotted; COLOR: #000099; MARGIN-RIGHT: 1px; BORDER-BOTTOM: #608cc8 1px dotted">密码<INPUT type=password maxLength=20 size=5 name=pass1 style="BORDER-RIGHT: #608cc8 1px dotted; BORDER-TOP: #608cc8 1px dotted; MARGIN-LEFT: 1px; BORDER-LEFT: #608cc8 1px dotted; COLOR: #000099; MARGIN-RIGHT: 1px; BORDER-BOTTOM: #608cc8 1px dotted" ><INPUT type=hidden name=pass><INPUT type=submit value=登陆 name=Submit style="BORDER-RIGHT: #608cc8 1px solid; BORDER-TOP: #608cc8 1px solid; BACKGROUND: white; MARGIN-LEFT: 5px; BORDER-LEFT: #608cc8 1px solid; COLOR: #000099; MARGIN-RIGHT: 5px; BORDER-BOTTOM: #608cc8 1px solid">&nbsp;&nbsp;<a href="http://www.swarmagents.cn/bs/membership/fastaddnew.asp" target="_blank">注册新人</a>
+</form>
+</H2>
+<DIV class=indent>
+<IFRAME align=top|left marginWidth=0 marginHeight=0 
+                        src="http://www.swarmagents.cn/bs/hotdot.asp" frameBorder=0 width="500" 
+                        scrolling=no height=830></IFRAME>
+
+
+
+
+
+
+
+</DIV></DIV></DIV></DIV>
+
+
+
+
+
+
+
+
+
+
+
+<%DbPath=NewsDB()
+set Conn=server.CreateObject("ADODB.Connection")
+Conn.open "driver={Microsoft Access Driver (*.mdb)};dbq=" & DbPath
+set rs=server.CreateObject("ADODB.Recordset")
+sql="select top 3 * from news order by id desc"
+rs.open sql,conn,3
+
+%>
+<DIV id=tablerb>
+<H2>最新动态～～～～～～<SPAN class=pl>( <A 
+href="news/newslist.asp">更多</A> )</SPAN></H2>
+<DIV class=indent>
+<UL class=mbt>
+<%do while not rs.eof
+	set reg=new RegExp
+	reg.pattern="<.*?>"
+	reg.Global=true
+	reg.IgnoreCase=true
+	realtitle=reg.replace(rs("title"),"")
+	set reg=nothing
+%>
+  <LI><%=rs("title")%>　　<SPAN 
+  class=date><%=rs("ondate")%></SPAN>
+  <DIV class=broadsmr><SPAN class=inq><IMG class=fil alt="<%=realtitle%>"
+  src="news/images/<%=rs("picture")%>" align=left  width=115> </SPAN><%
+  content=rs("newscontent")
+  'if len(content)>200 then
+	'content=left(content,200)&"。。。"
+  'end if
+  response.write content%>
+ </DIV></LI>
+  <%rs.movenext
+  loop
+  rs.close%>
+</UL></DIV>
+
+
+
+<H2>资源下载～～～～～～～～～～ <SPAN class=pl>( <A 
+href="thesis/" target="_blank">全部</A> )</SPAN></H2>
+<DIV class=indent>
+<%DbPath=DB()
+set Conn=server.CreateObject("ADODB.Connection")
+Conn.open "driver={Microsoft Access Driver (*.mdb)};dbq=" & DbPath
+set rs=server.CreateObject("ADODB.Recordset")
+if catalog="" then
+	sql="Select top 10 * From thesis "
+	where="where true "
+	order=" order by id desc"
+	answer="<div align=center>对不起，目前数据库中没有"
+end if
+answer=answer&"程序/论文"
+answer=answer&"请<a href='javascript:history.go(-1);'>返回</a>！</div>"
+if order2="up" then
+	order=" order by thesis.id"
+end if
+sql=sql&where&order
+'Response.Write sql 
+'Response.End 
+ rs.Open sql,Conn,3
+if rs.EOF then
+	Response.Write answer
+    Response.end
+end if  
+do while not rs.EOF
+		Tid=trim(rs("id"))
+		Tchi_title=trim(rs("chi_title"))
+		Ten_title=trim(rs("en_title"))
+		Tauthor1=trim(rs("author1"))
+		Tauthor2=trim(rs("author2"))
+		Tauthor_other=trim(rs("author_other"))
+		Tintro=trim(rs("intro"))
+		Tchi_abstract=trim(rs("chi_abstract"))
+		Ten_abstract=trim(rs("en_abstract"))
+		Taddress_info=trim(rs("address_info"))
+		type1=cint(rs("type"))
+		if Tintro="" then
+           Tintro=Tchi_abstract
+        end if
+		Tloc_doc=trim(rs("loc_doc"))
+		Tloc_pdf=trim(rs("loc_pdf"))
+		Thit_times=trim(rs("hit_times"))
+		TScore=rs("stars")
+		stars=TScore-int(TScore/100)*100
+		if left(Tloc_doc,len("http://"))<>"http://" then
+			if type1=0 then
+				realloc_doc="doc/"&Tloc_doc
+			else
+				realloc_doc="program/"&Tloc_doc
+			end if
+		else
+			realloc_doc=Tloc_doc
+		end if
+		if left(Tloc_pdf,len("http://"))<>"http://" then
+			if type1=0 then
+				realloc_pdf="doc/"&Tloc_pdf
+			else
+				realloc_pdf="program/"&Tloc_pdf
+			end if
+		else
+			realloc_pdf=Tloc_pdf
+		end if
+       %>
+	   <UL class=bs>
+  <LI><SPAN class=pl><SPAN class=pl><a href="thesis/detail.asp?id=<%=Tid%>" target="_blank"><%=Tchi_title%></a>&nbsp;[
+                              <%
+                            extname1=right(Tloc_doc,3)
+                            extname2=right(Tloc_pdf,3)
+                            if extname1="kdh" then
+								extname1="caj"
+							end if
+							if extname2<>"pdf" then
+								extname2="pdf"
+							end if
+                            if Tauthor2<>"" then
+								Response.Write Tauthor1
+								Response.Write ","
+								Response.Write Tauthor2
+                            else
+								Response.Write Tauthor1
+                            end if%> 
+							]
+							<%if Tloc_doc<>"" then%><a href="thesis/download.asp?address=<%=Realloc_doc%>&type=<%=Taddress_info%>&id=<%=Tid%>" target="_blank"><img src="images/<%=extname1%>.gif" border=0></a>&nbsp;                              <%end if%>                              <%if Tloc_pdf<>"" then%>                              <a href="thesis/download.asp?address=<%=Realloc_pdf%>&type=<%=Taddress_info%>&id=<%=Tid%>"><img src="images/<%=extname2%>.gif" border=0></a><%end if%></SPAN>
+  <DIV class=clear></DIV></LI></UL>       
+  <%  rs.MoveNext
+ loop
+ rs.close
+ set rs=nothing%>
+</DIV>
+
+
+
+<%
+DbPath=NewsDB()
+set Conn=server.CreateObject("ADODB.Connection")
+Conn.open "driver={Microsoft Access Driver (*.mdb)};dbq=" & DbPath
+set rs=server.CreateObject("ADODB.Recordset")
+sql="select top 20 * from Links order by id desc"
+rs.open sql,conn,3
+%>
+
+<H2>友情链接～～～～～～～～</H2>
+<DIV class="indent obssin">
+<UL class=mbt>
+<%do while not rs.eof%>
+  <LI class=mbtk><a href="<%=rs("LinkAddress")%>" target="_blank"><%=rs("LinkName")%></a></LI>
+<%rs.movenext
+loop%>
+
+</UL>
+<DIV class=clear></DIV>
+<IFRAME align=top|left marginWidth=0 marginHeight=0 
+                        src="statistic/getaddress.asp?show=0" frameBorder=0 width="100%" 
+                        scrolling=no 
+                  height=0>
+					  </IFRAME>
+</DIV></DIV>
+<DIV class=fdiv>
+<DIV class=ul></DIV><SPAN class=fspl> 2003－2008 www.swarmagents.com, all rights reserved 
+</SPAN><SPAN class=fspr><A href="http://www.swarmagents.cn/return/about.asp">关于我们</A> · <A 
+href="http://www.swarmagents.com/bbs/bbs.htm">留言</A></SPAN></DIV></DIV></BODY></HTML>
